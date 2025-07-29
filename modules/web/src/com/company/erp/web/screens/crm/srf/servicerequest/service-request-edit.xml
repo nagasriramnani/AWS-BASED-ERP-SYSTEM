@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="detailsForm"
+        messagesPack="com.company.erp.web.screens.crm.srf.servicerequest">
+    <data>
+        <instance id="serviceRequestDc"
+                  class="com.company.erp.entity.crm.srf.ServiceRequest"
+                  view="serviceRequest-view-details">
+            <loader/>
+            <collection id="equipmentDc" property="equipment"/>
+        </instance>
+        <collection id="existingClientsDc" class="com.company.erp.entity.crm.client.superclasses.Client"
+                    view="client-view-details">
+            <loader id="existingClientsLc">
+                <query>
+                    <![CDATA[select e from erp_Client e order by e.displayName ASC]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout expand="scrollBox" spacing="true">
+        <scrollBox id="scrollBox" spacing="true">
+              <hbox spacing="true">
+                <form id="detailsForm" dataContainer="serviceRequestDc">
+                    <column width="250px">
+                        <textField id="referenceNumberField" property="referenceNumber"/>
+                        <lookupPickerField id="existingClientField" optionsContainer="existingClientsDc"
+                                           property="existingClient">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="open" type="picker_open"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </lookupPickerField>
+                        <textField id="customerNameField" property="customerName"/>
+                        <dateField id="dateReceivedField" property="dateReceived"/>
+                        <textField id="mobilePhoneField" property="mobilePhone"/>
+                        <textField id="homePhoneField" property="homePhone"/>
+                        <textField id="workPhoneField" property="workPhone"/>
+                        <textField id="emailField" property="email"/>
+                        <textArea id="addressField" property="address" rows="5"/>
+                        <textField id="invoiceNumberField" property="invoiceNumber"/>
+                        <currencyField id="totalPriceField"
+                                       property="totalPrice"
+                                       currency="MUR"
+                                       datatype="decimal"
+                                       editable="false"/>
+                        <lookupField id="statusField" property="status"/>
+                    </column>
+                </form>
+                <vbox spacing="true">
+                    <groupBox id="equipmentBox"
+                              caption="msg://com.company.erp.entity.crm.srf/ServiceRequest.equipment">
+                        <table id="equipmentTable"
+                               dataContainer="equipmentDc"
+                               width="500px"
+                               height="200px"
+                               multiLineCells="true"
+                               aggregatable="true"
+                               aggregationStyle="BOTTOM">
+                            <actions>
+                                <action id="create" type="create"/>
+                                <action id="edit" type="edit"/>
+                                <action id="remove" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="productCategory"/>
+                                <column id="makeModel" caption="Make &amp; Model"/>
+                                <column id="price">
+                                <aggregation type="SUM" valueDescription="Total"/>
+                                </column>>
+                                <column id="status"/>
+                            </columns>
+                            <buttonsPanel>
+                                <button action="equipmentTable.create"/>
+                                <button action="equipmentTable.edit"/>
+                                <button action="equipmentTable.remove"/>
+                            </buttonsPanel>
+                        </table>
+                    </groupBox>
+                    <groupBox id="attachmentsBox"
+                              caption="Attachments">
+                        <fragment screen="ddca_EntityAttachmentsFragment"
+                                  height="210px"
+                                  width="500px">
+                            <properties>
+                                <property name="attachableDc" ref="serviceRequestDc"/>
+                            </properties>
+                        </fragment>
+                    </groupBox>
+                </vbox>
+              </hbox>
+
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowCommit"/>
+            <button action="windowClose"/>
+            <button id="generateReportBtn" caption="Generate"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://schemas.haulmont.com/cuba/screen/fragment.xsd"
+          xmlns:chart="http://schemas.haulmont.com/charts/charts.xsd">
+    <data>
+        <keyValueCollection id="bestSellingProductsDc">
+            <loader id="bestSellingProductsPieChartLoader"
+                    maxResults="6">
+                <query>
+                    <![CDATA[SELECT sum(e.quantity), e.item
+                             FROM erp_OrderItem e
+                             WHERE e.order.status IN ('PAID', 'PARTIALLY_PAID', 'UNPAID')
+                             GROUP BY e.item
+                             ORDER BY sum(e.quantity) DESC]]>
+                </query>
+            </loader>
+            <properties>
+                <property name="count"/>
+                <property name="item"/>
+            </properties>
+        </keyValueCollection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <chart:pieChart id="bestSellingProductsPieChart" dataContainer="bestSellingProductsDc"
+                        creditsPosition="BOTTOM_LEFT"
+                        theme="LIGHT"
+                        innerRadius="25"
+                        labelRadius="5"
+                        balloonText="[[title]]&lt;br&gt;&lt;span style='font-size:14px'&gt;
+                        &lt;strong&gt;[[value]]&lt;/strong&gt; ([[percents]]%)&lt;/span&gt;"
+                        depth3D="15"
+                        height="100%"
+                        radius="60"
+                        outlineAlpha="0.4"
+                        titleField="item"
+                        valueField="count"
+                        width="100%">
+            <chart:titles>
+                <chart:title alpha="1"
+                             bold="true"
+                             size="20"
+                             tabIndex="0"
+                             text="Best Selling"/>
+                <chart:title alpha="0.5"
+                             size="12"
+                             text="Products"/>
+            </chart:titles>
+            <chart:legend autoMargins="true"
+                          marginRight="30"
+                          markerType="CIRCLE"
+                          position="BOTTOM"
+                          equalWidths="false"/>
+            <chart:export/>
+        </chart:pieChart>
+    </layout>
+</fragment>

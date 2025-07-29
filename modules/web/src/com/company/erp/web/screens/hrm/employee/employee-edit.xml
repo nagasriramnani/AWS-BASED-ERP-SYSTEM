@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="tabSheet"
+        messagesPack="com.company.erp.web.screens.hrm.employee">
+    <data>
+        <instance id="employeeDc"
+                  class="com.company.erp.entity.hrm.employee.Employee"
+                  view="employee-view-details">
+            <loader/>
+            <collection id="skillDc" property="skill"/>
+            <collection id="educationDc" property="education"/>
+            <collection id="workExperienceDc" property="workExperience"/>
+            <collection id="languageDc" property="language"/>
+            <collection id="licenseDc" property="license"/>
+        </instance>
+        <collection id="departmentsDc"
+                    class="com.company.erp.entity.hrm.dept.Department"
+                    view="_minimal">
+            <loader id="departmentsLc">
+                <query>
+                    <![CDATA[select e from erp_Department e
+                    order by e.department ASC]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="subunitsDc"
+                    class="com.company.erp.entity.hrm.dept.Subunit"
+                    view="_minimal">
+            <loader>
+                <query>
+                    <![CDATA[select e from erp_Subunit e
+                    where e.department = :container_departmentsDc
+                    order by e.subunit ASC]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="countriesDc"
+                    class="com.company.erp.entity.general.country.Country"
+                    view="_minimal">
+            <loader>
+                <query>select e from erp_Country e
+                    order by e.country ASC
+                </query>
+            </loader>
+        </collection>
+        <collection id="citiesDc"
+                    class="com.company.erp.entity.general.country.City"
+                    view="_minimal">
+            <loader>
+                <query>select e from erp_City e
+                    where e.country = :container_countriesDc
+                    order by e.city ASC
+                </query>
+            </loader>
+        </collection>
+        <collection id="jobPositionsDc"
+                    class="com.company.erp.entity.hrm.job_positions.Job_Position"
+                    view="_minimal">
+            <loader>
+                <query>select e from erp_Job_Position e order by e.name asc</query>
+            </loader>
+        </collection>
+        <collection id="usersDc" class="com.haulmont.cuba.security.entity.User" view="_minimal">
+            <loader>
+                <query>select e from sec$User e order by e.createTs DESC</query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode
+            modal="true"
+            forceDialog="true"/>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout expand="scrollBox" spacing="true">
+        <scrollBox id="scrollBox" width="100%">
+            <tabSheet id="tabSheet" width="100%">
+            <tab id="tab1" caption="General Details" margin="true" spacing="true">
+                <form id="generalDetails" dataContainer="employeeDc" align="MIDDLE_CENTER">
+                    <column width="250px">
+                        <textField id="empIdField" property="empId" caption="Employee ID" editable="false"/>
+                        <textField id="nicField" property="nic" caption="NIC"/>
+                        <textField id="fullNameField" property="fullName" visible="false"/>
+                        <textField id="firstNameField" property="name.firstName"/>
+                        <textField id="middleNameField" property="name.middleName"/>
+                        <textField id="lastNameField" property="name.lastName"/>
+                        <lookupField id="genderField" property="gender" caption="Gender"/>
+                        <dateField id="dobField" property="dob" caption="Date Of Birth"/>
+                        <lookupPickerField id="nationalityField" property="nationality"
+                                           optionsContainer="countriesDc"
+                                           caption="Nationality" align="TOP_LEFT">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </lookupPickerField>
+                    </column>
+                </form>
+            </tab>
+            <tab id="tab2" caption="Contact Details" margin="true" spacing="true">
+                <form id="contactDetails" dataContainer="employeeDc" align="MIDDLE_CENTER">
+                    <column width="250px">
+                        <textField id="mobilePhoneField" property="mobilePhone" caption="Mobile Phone"
+                                   align="TOP_LEFT"/>
+                        <textField id="homePhoneField" property="homePhone" caption="Home Phone"
+                                   align="TOP_LEFT"/>
+                        <textField id="emailField" property="email" caption="E-Mail" align="TOP_LEFT"/>
+                        <lookupPickerField id="countryOfResidenceField"
+                                           property="countryOfResidence"
+                                           optionsContainer="countriesDc">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </lookupPickerField>
+                        <lookupPickerField id="cityField"
+                                           property="city"
+                                           optionsContainer="citiesDc">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </lookupPickerField>
+                        <textArea rows="5" id="streetAddressApartmentField" property="streetAddressApartment"
+                                  caption="Street Address/Apartment"/>
+                    </column>
+                </form>
+            </tab>
+            <tab id="tab3" caption="Access and Organisational Details" margin="true" spacing="true">
+                <form id="jobDetails" dataContainer="employeeDc" align="MIDDLE_CENTER">
+                    <column width="260px">
+                        <lookupPickerField optionsContainer="departmentsDc" property="department"
+                                           id="departmentField"
+                                           caption="Department" align="TOP_LEFT">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </lookupPickerField>
+                        <lookupPickerField id="subunitField" property="subunit" optionsContainer="subunitsDc"
+                                           caption="Subunit"/>
+                        <lookupPickerField id="jobPositionField" property="jobPosition"
+                                           optionsContainer="jobPositionsDc">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </lookupPickerField>
+                        <lookupField id="userField" property="user" optionsContainer="usersDc"/>
+                    </column>
+                </form>
+            </tab>
+            <tab id="tab4" caption="Qualifications" margin="true" spacing="true">
+                <form id="qualificationDetails" dataContainer="employeeDc" align="MIDDLE_CENTER">
+                </form>
+                <accordion id="qualificationsAccordion">
+                    <tab id="educationTab" caption="Education" margin="true" spacing="true">
+                        <groupTable id="educationTable" dataContainer="educationDc" width="100%" height="126px">
+                            <actions>
+                                <action id="create" type="create"/>
+                                <action id="edit" type="edit"/>
+                                <action id="remove" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="education" caption="Education Level"/>
+                                <column id="majorSpecialization"/>
+                                <column id="institute"/>
+                            </columns>
+                            <buttonsPanel>
+                                <button action="educationTable.create"/>
+                                <button action="educationTable.edit"/>
+                                <button action="educationTable.remove"/>
+                            </buttonsPanel>
+                        </groupTable>
+                    </tab>
+                    <tab id="skillTab" caption="Skills" margin="true" spacing="true">
+                        <groupTable id="skillTable" dataContainer="skillDc" width="100%" height="126px">
+                            <actions>
+                                <action id="create" type="create"/>
+                                <action id="edit" type="edit"/>
+                                <action id="remove" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="skill"/>
+                                <column id="yearsOfExperience"/>
+                                <column id="comment"/>
+                            </columns>
+                            <buttonsPanel>
+                                <button action="skillTable.create"/>
+                                <button action="skillTable.edit"/>
+                                <button action="skillTable.remove"/>
+                            </buttonsPanel>
+                        </groupTable>
+                    </tab>
+                    <tab id="workExpTab" caption="Work Experience" spacing="true" margin="true">
+                        caption="msg://com.company.erp.entity.hrm.employee/Employee.workExperience">
+                        <groupTable id="workExperienceTable" dataContainer="workExperienceDc" width="100%"
+                                    height="126px">
+                            <actions>
+                                <action id="create" type="create"/>
+                                <action id="edit" type="edit"/>
+                                <action id="remove" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column id="company"/>
+                                <column id="jobTitle"/>
+                                <column id="comment"/>
+                            </columns>
+                            <buttonsPanel>
+                                <button action="workExperienceTable.create"/>
+                                <button action="workExperienceTable.edit"/>
+                                <button action="workExperienceTable.remove"/>
+                            </buttonsPanel>
+                        </groupTable>
+                    </tab>
+                    <tab id="languagesTab" caption="Languages" margin="true" spacing="true">
+                        <groupBox id="languageBox"
+                                  caption="msg://com.company.erp.entity.hrm.employee/Employee.language">
+                            <table id="languageTable" dataContainer="languageDc" width="100%" height="126px">
+                                <actions>
+                                    <action id="create" type="create"/>
+                                    <action id="edit" type="edit"/>
+                                    <action id="remove" type="remove"/>
+                                </actions>
+                                <columns>
+                                    <column id="language"/>
+                                    <column id="fluency"/>
+                                    <column id="competency"/>
+                                </columns>
+                                <buttonsPanel>
+                                    <button action="languageTable.create"/>
+                                    <button action="languageTable.edit"/>
+                                    <button action="languageTable.remove"/>
+                                </buttonsPanel>
+                            </table>
+                        </groupBox>
+                    </tab>
+                    <tab id="licensesTab" caption="Licenses" margin="true" spacing="true">
+                        <groupBox id="licenseBox"
+                                  caption="msg://com.company.erp.entity.hrm.employee/Employee.license">
+                            <table id="licenseTable" dataContainer="licenseDc" width="100%" height="126px">
+                                <actions>
+                                    <action id="create" type="create"/>
+                                    <action id="edit" type="edit"/>
+                                    <action id="remove" type="remove"/>
+                                </actions>
+                                <columns>
+                                    <column id="license"/>
+                                    <column id="licenseNumber"/>
+                                    <column id="expiryDate"/>
+                                </columns>
+                                <buttonsPanel>
+                                    <button action="licenseTable.create"/>
+                                    <button action="licenseTable.edit"/>
+                                    <button action="licenseTable.remove"/>
+                                </buttonsPanel>
+                            </table>
+                        </groupBox>
+                    </tab>
+                </accordion>
+            </tab>
+            <tab id="attachmentsTab"
+                 caption="Attachments"
+                 margin="true"
+                 spacing="true">
+                <form id="attachmentsForm" dataContainer="employeeDc"/>
+                <fragment screen="ddca_EntityAttachmentsFragment"
+                          height="300px">
+                    <properties>
+                        <property name="attachableDc" ref="employeeDc"/>
+                    </properties>
+                </fragment>
+            </tab>
+            </tabSheet>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowCommit"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+
+    <item id="mainDashboard" screen="erp_DashboardScreen"
+          insertBefore="reports" icon="font-icon:DASHBOARD"/>
+    <menu id="general" insertBefore="reports" icon="font-icon:BUILDING">
+        <item screen="erp_Task.browse" icon="LIST_ALT"/>
+        <item screen="erp_ContactPerson.browse" icon="font-icon:ADDRESS_BOOK"/>
+        <menu id="generalMasterData" icon="font-icon:DATABASE">
+            <item screen="erp_Country.browse"/>
+        </menu>
+    </menu>
+
+    <menu id="hrm"  insertBefore="reports" insertAfter="general" icon="font-icon:BRIEFCASE">
+        <item screen="erp_Employee.browse" icon="font-icon:ID_BADGE"/>
+        <menu id="qualifications" icon="font-icon:GRADUATION_CAP">
+            <item screen="erp_Education.browse"/>
+            <item screen="erp_Skill.browse"/>
+            <item screen="erp_License.browse"/>
+            <item screen="erp_Language.browse"/>
+        </menu>
+        <menu id="hrmMasterData" icon="font-icon:DATABASE">
+            <item screen="erp_Department.browse"/>
+            <item screen="erp_Job_Position.browse"/>
+        </menu>
+    </menu>
+    <menu id="crm" insertBefore="reports" insertAfter="hrm" icon="font-icon:HANDSHAKE_O">
+            <item screen="erp_Client.browse" icon="font-icon:GROUP"/>
+        <item screen="erp_ServiceRequest.browse" icon="font-icon:GEARS"/>
+    </menu>
+
+    <menu id="sales_inventory" insertBefore="reports" insertAfter="hrm" icon="font-icon:BOOK">
+        <menu id="orderManagement" icon="font-icon:SHOPPING_CART">
+            <item screen="erp_Order.browse" icon="font-icon:ARCHIVE"/>
+            <menu id="orderMasterData" icon="font-icon:DATABASE">
+                <item screen="erp_Service.browse"/>
+                <item screen="erp_NonStockItem.browse"/>
+            </menu>
+        </menu>
+        <menu id="productManagement" icon="font-icon:DROPBOX">
+           <item screen="erp_Product.browse" icon="font-icon:PRODUCT_HUNT"/>
+        <menu id="productMasterData" icon="font-icon:DATABASE">
+            <item screen="erp_Make_Manufacturer.browse"/>
+            <item screen="erp_ProductCategory.browse"/>
+        </menu>
+        </menu>
+    </menu>
+
+    <menu id="cms" insertBefore="reports" icon="font-icon:INTERNET_EXPLORER">
+        <item screen="erp_CatalogProduct.browse"/>
+        <item screen="erp_PortalMessages.browse"/>
+    </menu>
+
+</menu-config>

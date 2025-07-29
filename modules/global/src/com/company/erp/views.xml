@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view entity="erp_Department" name="department-view-details" extends="_local">
+        <property name="subunit" view="_minimal"/>
+        <property name="employee" view="employee-view-details"/>
+    </view>
+    <view entity="erp_Employee" name="employee-view-details" extends="_local">
+        <property name="nationality" view="_minimal"/>
+        <property name="countryOfResidence" view="_minimal"/>
+        <property name="city" view="_minimal"/>
+        <property name="department" view="_minimal"/>
+        <property name="subunit" view="_minimal"/>
+        <property name="skill" view="_minimal">
+            <property name="yearsOfExperience"/>
+            <property name="comment"/>
+        </property>
+        <property name="education" view="_local">
+            <property name="education" view="_minimal"/>
+        </property>
+        <property name="workExperience" view="_minimal">
+            <property name="startDate"/>
+            <property name="endDate"/>
+            <property name="comment"/>
+        </property>
+        <property name="language" view="_local">
+            <property name="language" view="_minimal"/>
+        </property>
+        <property name="license" view="_minimal">
+            <property name="licenseNumber"/>
+            <property name="issuedDate"/>
+            <property name="expiryDate"/>
+        </property>
+        <property name="jobPosition" view="_minimal"/>
+        <property name="user" view="_minimal"/>
+        <property name="name" view="_minimal">
+            <property name="middleName"/>
+        </property>
+    </view>
+    <view entity="erp_Employee_Skill" name="employee_Skill-view" extends="_local">
+        <property name="skill" view="_minimal"/>
+    </view>
+    <view entity="erp_Employee_Education" name="employee_Education-view" extends="_local">
+        <property name="education" view="_minimal"/>
+    </view>
+    <view entity="erp_Employee_Language" name="employee_Language-view" extends="_local">
+        <property name="language" view="_minimal"/>
+    </view>
+    <view entity="erp_Employee_License" name="employee_License-view" extends="_local">
+        <property name="license" view="_minimal"/>
+    </view>
+    <view entity="erp_Country" name="country-view-details" extends="_local">
+        <property name="city" view="_minimal">
+            <property name="city"/>
+            <property name="coordinates"/>
+        </property>
+    </view>
+    <view entity="erp_Client" name="client-view-details" extends="_local">
+        <property name="country" view="_minimal"/>
+        <property name="city" view="_minimal"/>
+    </view>
+    <view entity="erp_ClientPerson" name="clientPerson-view-details" extends="_local">
+        <property name="name" view="_minimal">
+            <property name="middleName"/>
+        </property>
+        <property name="country" view="_minimal"/>
+        <property name="city" view="_minimal"/>
+        <property name="order" view="_local"/>
+        <property name="serviceRequests" view="_minimal">
+            <property name="invoiceNumber"/>
+            <property name="totalPrice"/>
+            <property name="status"/>
+            <property name="dateReceived"/>
+        </property>
+    </view>
+    <view entity="erp_ClientCompany" name="clientCompany-view-details" extends="_local">
+        <property name="contactPerson" view="_local">
+            <property name="contactPerson" view="_minimal">
+                <property name="workPhone"/>
+                <property name="preferredPhone"/>
+                <property name="name" view="_minimal">
+                    <property name="middleName"/>
+                </property>
+                <property name="gender"/>
+                <property name="mobilePhone"/>
+                <property name="homePhone"/>
+                <property name="email"/>
+            </property>
+        </property>
+        <property name="country" view="_minimal"/>
+        <property name="city" view="_minimal"/>
+        <property name="order" view="_local"/>
+        <property name="serviceRequests" view="_minimal">
+            <property name="invoiceNumber"/>
+            <property name="totalPrice"/>
+            <property name="status"/>
+            <property name="dateReceived"/>
+        </property>
+    </view>
+    <view entity="erp_ContactPerson" name="contactPerson-view-details" extends="_local">
+        <property name="name" view="_minimal">
+            <property name="middleName"/>
+        </property>
+    </view>
+    <view entity="erp_Company_ContactPersons" name="company_ContactPersons-view" extends="_local">
+        <property name="contactPerson" view="_local"/>
+    </view>
+    <view entity="erp_City" name="city-view-details" extends="_local">
+        <property name="country" view="_minimal"/>
+    </view>
+    <view entity="erp_Product" name="product-view-details" extends="_local">
+        <property name="productCategory" view="_minimal"/>
+        <property name="make_manufacturer" view="_minimal"/>
+    </view>
+    <view entity="erp_Equipment" name="equipment-view-details" extends="_local">
+        <property name="productCategory" view="_minimal"/>
+    </view>
+    <view entity="erp_ServiceRequest" name="serviceRequest-view-details" extends="_local">
+        <property name="existingClient" view="client-view-details"/>
+        <property name="equipment" view="_minimal">
+            <property name="productCategory" view="_minimal"/>
+            <property name="serialNumber"/>
+            <property name="visibleDefect"/>
+            <property name="problemDescription"/>
+            <property name="technicianReport"/>
+            <property name="price"/>
+        </property>
+    </view>
+    <view entity="erp_Service" name="service-view-details" extends="_local"/>
+    <view entity="erp_NonStockItem" name="nonStockItem-view" extends="_local">
+    </view>
+    <view entity="erp_OrderItem" name="orderItem-view-details" extends="_local">
+        <property name="item" view="_local"/>
+    </view>
+    <view entity="erp_Order" name="order-view-details" extends="_local">
+        <property name="client" view="client-view-details"/>
+        <property name="item" view="orderItem-view-details">
+            <property name="item" view="_minimal">
+                <property name="vatPrice"/>
+            </property>
+        </property>
+        <property name="payments" view="_local"/>
+    </view>
+    <view entity="erp_Task" name="task-view-details" extends="_local">
+        <property name="orderNum" view="_minimal">
+            <property name="client" view="_minimal"/>
+            <property name="deliveryDate"/>
+            <property name="item" view="_minimal"/>
+        </property>
+        <property name="client" view="client-view-details"/>
+        <property name="country" view="_minimal"/>
+        <property name="city" view="_minimal"/>
+        <property name="employee" view="_minimal"/>
+    </view>
+    <view entity="erp_Payment" name="payment-view-details" extends="_local"/>
+    <view entity="erp_CatalogProduct" name="catalogProduct-view-details" extends="_local">
+        <property name="product" view="product-view-details"/>
+        <property name="category" view="_minimal"/>
+        <property name="brand" view="_minimal"/>
+    </view>
+    <view entity="erp_PortalMessages" name="portalMessage-view-details" extends="_local"/>
+    <view entity="erp_Education" name="education-view" extends="_local">
+        <property name="employee" view="_local">
+            <property name="employee" view="_minimal"/>
+        </property>
+    </view>
+    <view entity="erp_License" name="license-view" extends="_local">
+        <property name="employee" view="_local">
+            <property name="employee" view="_minimal"/>
+        </property>
+    </view>
+    <view entity="erp_Language" name="language-view" extends="_local">
+        <property name="employee" view="_local">
+            <property name="employee" view="_minimal"/>
+        </property>
+    </view>
+    <view entity="erp_Skill" name="skill-view" extends="_local">
+        <property name="employee" view="_local">
+            <property name="employee" view="_minimal"/>
+        </property>
+    </view>
+    <view entity="erp_Subunit" name="subunit-view" extends="_local">
+        <property name="employee" view="_minimal">
+            <property name="empId"/>
+            <property name="jobPosition" view="_minimal"/>
+        </property>
+    </view>
+    <view entity="erp_Job_Position" name="job_Position-view" extends="_local">
+        <property name="employee" view="_minimal">
+            <property name="empId"/>
+            <property name="department" view="_minimal"/>
+        </property>
+    </view>
+    <view entity="erp_Make_Manufacturer" name="make_Manufacturer-view" extends="_local">
+        <property name="product" view="_minimal">
+            <property name="productCategory" view="_minimal"/>
+            <property name="qtyTotal"/>
+            <property name="vatPrice"/>
+        </property>
+        <property name="catalogProduct" view="_minimal">
+            <property name="category" view="_minimal"/>
+            <property name="stockStatus"/>
+            <property name="image"/>
+        </property>
+    </view>
+    <view entity="erp_ProductCategory" name="productCategory-view" extends="_local">
+        <property name="product" view="_minimal">
+            <property name="make_manufacturer" view="_minimal"/>
+            <property name="qtyTotal"/>
+            <property name="vatPrice"/>
+        </property>
+        <property name="catalogProduct" view="_minimal">
+            <property name="brand" view="_minimal"/>
+            <property name="image"/>
+        </property>
+        <property name="serviceRequestEquipment" view="_minimal">
+            <property name="serialNumber"/>
+            <property name="serviceRequest" view="_minimal"/>
+        </property>
+    </view>
+
+
+</views>

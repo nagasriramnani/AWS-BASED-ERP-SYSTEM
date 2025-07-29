@@ -1,0 +1,155 @@
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:swr="http://strangeway.org/xsd/responsive/sw-responsive.xsd"
+        xmlns:dnd="http://schemas.haulmont.com/dnd/0.1/drag-and-drop.xsd"
+        extends="/com/haulmont/cuba/web/app/main/main-screen.xml">
+    <facets>
+        <timer id="updateCountersTimer" delay="3000"  autostart="true" repeating="true" />
+    </facets>
+    <layout>
+        <cssLayout id="horizontalWrap">
+            <workArea id="workArea">
+                <initialLayout expand="scrollBox">
+                    <scrollBox id="scrollBox"
+                               spacing="true"
+                               responsive="true">
+                        <image scaleMode="SCALE_DOWN"
+                               width="350px"
+                               align="TOP_CENTER">
+                            <theme path="branding/banner.png"/>
+                        </image>
+                        <label id="bannerSpacer"/>
+                        <swr:responsiveLayout width="100%"
+                                              spacing="true">
+                            <swr:row height="AUTO"
+                                     grow="true"
+                                     shrink="true"
+                                     spacing="true"
+                                     margin="false"
+                                     stylename="well">
+                                <swr:column height="AUTO">
+                                    <swr:content>
+                                        <groupBox id="rootPalette"
+                                                  caption="Todo actions"
+                                                  height="100%"
+                                                  width="100%"
+                                                  expand="palette">
+                                            <dnd:dndVBoxLayout id="palette"
+                                                               dragMode="CLONE"
+                                                               spacing="true"
+                                                               width="100%">
+                                                <button id="call"
+                                                        caption="Call"
+                                                        height="40px"
+                                                        width="100%"
+                                                        icon="font-icon:PHONE"/>
+                                                <button id="chat"
+                                                        caption="Chat"
+                                                        height="40px"
+                                                        width="100%"
+                                                        icon="font-icon:WECHAT"/>
+                                                <button id="meeting"
+                                                        caption="Meeting"
+                                                        height="40px"
+                                                        width="100%"
+                                                        icon="font-icon:MEETUP"/>
+                                                <button id="buy"
+                                                        caption="Buy"
+                                                        height="40px"
+                                                        width="100%"
+                                                        icon="font-icon:BUYSELLADS"/>
+                                                <button id="other"
+                                                        caption="Other"
+                                                        height="40px"
+                                                        width="100%"/>
+                                            </dnd:dndVBoxLayout>
+                                        </groupBox>
+                                    </swr:content>
+                                    <swr:display xs="12" sm="12" md="12" lg="2"/>
+                                </swr:column>
+                                <swr:column height="100%">
+                                    <swr:content>
+                                        <groupBox id="rootDashboard"
+                                                  caption="Todo today"
+                                                  height="525px"
+                                                  expand="rootDashboardScrollBox">
+                                            <scrollBox id="rootDashboardScrollBox"
+                                                       width="100%">
+                                                <dnd:dndVBoxLayout id="dashboard"
+                                                                   dragMode="CLONE"
+                                                                   height="100%"
+                                                                   spacing="true"
+                                                                   width="100%">
+                                                </dnd:dndVBoxLayout>
+                                            </scrollBox>
+                                        </groupBox>
+                                    </swr:content>
+                                    <swr:display xs="12" sm="12" md="12" lg="7"/>
+                                </swr:column>
+                                <swr:column height="100%">
+                                    <swr:content>
+                                        <vbox height="100%"
+                                              spacing="true">
+                                            <label value="Quick Links"
+                                                   stylename="bold"
+                                                   align="MIDDLE_CENTER"/>
+                                            <button id="createTaskBtn"
+                                                    caption="Create Task"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="primary"/>
+                                            <button id="createOrder"
+                                                    caption="Create Order"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="primary"/>
+                                            <button id="createServiceRequest"
+                                                    caption="Create Service Request"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="primary"/>
+                                            <button id="viewClients"
+                                                    caption="View Clients"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="friendly"/>
+                                            <button id="viewEmployees"
+                                                    caption="View Employees"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="friendly"/>
+                                            <button id="viewContactPersons"
+                                                    caption="View Contacts List"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="friendly"/>
+                                            <button id="viewProducts"
+                                                    caption="View Products"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    stylename="friendly"/>
+                                            <link   id="mns"
+                                                    icon="font-icon:EXTERNAL_LINK"
+                                                    caption="Mauritius Network Services"
+                                                    align="MIDDLE_CENTER"
+                                                    width="100%"
+                                                    target="_blank"
+                                                    url="https://companies.govmu.org:4343/MNSOnlineSearch/"/>
+                                            <link id="portal"
+                                                  icon="font-icon:MOBILE"
+                                                  caption="Go to Public Portal"
+                                                  align="MIDDLE_CENTER"
+                                                  width="100%"
+                                                  target="_blank"
+                                                  url = "https://portal.srjdissert.ga/"/>
+                                        </vbox>
+                                    </swr:content>
+                                    <swr:display xs="12" sm="12" md="12" lg="3"/>
+                                </swr:column>
+                            </swr:row>
+                        </swr:responsiveLayout>
+                    </scrollBox>
+                </initialLayout>
+            </workArea>
+        </cssLayout>
+    </layout>
+</window>

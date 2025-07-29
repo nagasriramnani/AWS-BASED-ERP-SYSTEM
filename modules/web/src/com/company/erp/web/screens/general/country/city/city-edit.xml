@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.erp.web.screens.general.country.city">
+    <data>
+        <instance id="cityDc"
+                  class="com.company.erp.entity.general.country.City"
+                  view="city-view-details">
+            <loader/>
+        </instance>
+        <collection id="CountriesDc" class="com.company.erp.entity.general.country.Country" view="_minimal">
+            <loader>
+                <query>select e from erp_Country e order by e.country ASC</query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode modal="true"
+                forceDialog="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="cityDc">
+            <column width="250px">
+                <lookupPickerField id="countryField"
+                                   property="country"
+                                   optionsContainer = "CountriesDc">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <textField id="cityField" property="city" caption="City/Village"/>
+                <textField id="coordinatesField" property="coordinates"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowCommit"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

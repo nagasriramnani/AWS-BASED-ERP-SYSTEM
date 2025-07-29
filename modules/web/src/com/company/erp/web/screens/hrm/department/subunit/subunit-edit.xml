@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.erp.web.screens.hrm.department.subunit">
+    <data>
+        <instance id="subunitDc"
+                  class="com.company.erp.entity.hrm.dept.Subunit"
+                  view="subunit-view">
+            <loader/>
+            <collection id="employeeDc" property="employee"/>
+        </instance>
+    </data>
+    <dialogMode modal="true"
+                forceDialog="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="subunitDc">
+            <column width="250px">
+                <textField id="subunitField" property="subunit"/>
+            </column>
+        </form>
+        <groupBox id="employeeBox" caption="msg://com.company.erp.entity.hrm.dept/Subunit.employee">
+            <table id="employeeTable" dataContainer="employeeDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="empId"/>
+                    <column id="fullName"/>
+                    <column id="jobPosition"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="employeeTable.create"/>
+                    <button action="employeeTable.edit"/>
+                    <button action="employeeTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowCommit"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

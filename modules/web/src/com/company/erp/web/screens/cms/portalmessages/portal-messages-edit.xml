@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.erp.web.screens.cms.portalmessages">
+    <data>
+        <instance id="portalMessagesDc"
+                  class="com.company.erp.entity.cms.portal_messages.PortalMessage"
+                  view="portalMessage-view-details">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="portalMessagesDc">
+            <column width="250px">
+                <textField id="personNameField" property="personName" editable="false"/>
+                <textField id="emailField" property="email" editable="false"/>
+                <textField id="phoneNumberField" property="phoneNumber" editable="false"/>
+                <lookupField id="statusField" property="status"/>
+                <dateField id="receivedTsField" property="receivedTs" caption="Date Received" editable="false"/>
+            </column>
+        </form>
+        <form id="messageForm"
+              dataContainer="portalMessagesDc"
+              captionPosition="TOP">
+            <column width="350px">
+                <resizableTextArea id="subjectField"
+                                   property="subject"
+                                   rows="1"
+                                   editable="false"/>
+                <resizableTextArea id="messageField"
+                                   property="message"
+                                   rows="5"
+                                   editable="false"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowCommit"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

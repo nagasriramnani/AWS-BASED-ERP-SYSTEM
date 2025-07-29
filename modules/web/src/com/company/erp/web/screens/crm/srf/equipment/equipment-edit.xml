@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.company.erp.web.screens.crm.srf.equipment">
+    <data>
+        <instance id="equipmentDc"
+                  class="com.company.erp.entity.crm.srf.Equipment"
+                  view="equipment-view-details">
+            <loader/>
+        </instance>
+        <collection id="productCategoriesDc"
+                    class="com.company.erp.entity.sales_inventory.product.master_data.product_category.ProductCategory"
+                    view="_minimal">
+            <loader id="productCategoriesLc">
+                <query>
+                    <![CDATA[select e from erp_ProductCategory e order by e.createTs ASC]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="AUTO"
+                width="AUTO"
+                modal="true"
+                forceDialog="true"/>
+    <layout expand="editActions" spacing="true">
+      <hbox spacing="true">
+        <form id="form" dataContainer="equipmentDc">
+            <column width="250px">
+                <lookupPickerField id="productCategoryField" optionsContainer="productCategoriesDc"
+                                   property="productCategory">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="open" type="picker_open"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </lookupPickerField>
+                <textArea id="makeModelField" property="makeModel" caption="Make &amp; Model" rows="3"/>
+                <textField id="serialNumberField" property="serialNumber"/>
+                <textArea id="visibleDefectField" property="visibleDefect" rows="5"/>
+                <currencyField id="priceField" property="price" currency="MUR" datatype="decimal"/>
+                <lookupField id="statusField" property="status"/>
+            </column>
+        </form>
+        <form id="form1" dataContainer="equipmentDc" captionPosition="TOP" >
+            <column>
+                <resizableTextArea id="problemDescriptionField" property="problemDescription" rows="15"/>
+            </column>
+        </form>
+        <form id="form2" dataContainer="equipmentDc" captionPosition="TOP">
+            <column>
+                <resizableTextArea id="technicianReportField" property="technicianReport" rows="15"/>
+            </column>
+        </form>
+      </hbox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowCommit"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
